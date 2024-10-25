@@ -12,6 +12,7 @@ function geocode() {
 	var searchword = $("#searchfield").val();
 
 	if(searchword.length > 3) {
+		https://api.maptiler.com/geocoding/{query}.json
 		$.getJSON("https://photon.komoot.de/api/", {
 			"q": searchword,
 			"lat": saved_lat,
@@ -57,7 +58,7 @@ function element_to_map(data) {
 	});
 
 	$.each(data.elements, function(_, el) {
-		if(el.lat == undefined) {
+		if(el.lat === undefined) {
 			el.lat = el.center.lat;
 			el.lon = el.center.lon;
 		}
@@ -84,7 +85,6 @@ function element_to_map(data) {
 		}
 	});
 }
-
 
 function get_op_elements() {
 	if(map.getZoom() < 12) {
@@ -115,14 +115,14 @@ function go_to_current_pos() {
 
 $(function() {
 	kondom_icon = L.icon({
-		iconUrl: '/static/img/kondom.png',
+		iconUrl: '/static/img/condom.png',
 		iconSize: [30, 30],
 		iconAnchor: [15, 15],
 		popupAnchor: [0, -15]
 	});
 
 	strip_icon = L.icon({
-		iconUrl: '/static/img/stripclub2.png',
+		iconUrl: '/static/img/stripclub.png',
 		iconSize: [30, 30],
 		iconAnchor: [15, 15],
 		popupAnchor: [0, -15]
@@ -156,17 +156,19 @@ $(function() {
 	saved_lon = localStorage.getItem("pos_lon")
 
 	if(saved_lat != undefined) {
-		map.setView([saved_lat, saved_lon], 13)
+		map.setView([saved_lat, saved_lon], 9)
 	} else {
-		map.setView([51.0474, 13.7384], 13);
+		map.setView([48.638, 7.690], 5);
 	}
 
 	var hash = new L.Hash(map);
 
-	if(L.Browser.retina) var tp = "lr";
-	else var tp = "ls";
-	L.tileLayer('https://tiles.lyrk.org/'+tp+'/{z}/{x}/{y}?apikey=299723017f344e81866878c8f2fb0678', {
-		attribution: 'powered by <a href="https://geodienste.lyrk.de">Lyrk Geodienste</a>, <a href="http://geodienste.lyrk.de/copyright">Lizenzinformationen</a>',
+	if(L.Browser.retina) var tp = "@2x";
+	else var tp = "";
+
+
+	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+tp+'.png?key=cEVF2FxbV6tOoX4PBtog', {
+		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		maxZoom: 18
 	}).addTo(map);
 
