@@ -156,7 +156,7 @@ $(function() {
 	saved_lon = localStorage.getItem("pos_lon")
 	saved_zoom = localStorage.getItem("zoom")
 
-	if(saved_zoom !== undefined) {
+	if(saved_lat != undefined && saved_lon != undefined && saved_zoom != undefined) {
 		map.setView([saved_lat, saved_lon],saved_zoom)
 		if (saved_zoom >= 12) {
 			$("#zoomnotice").hide();
