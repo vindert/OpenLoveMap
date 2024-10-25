@@ -12,7 +12,6 @@ function geocode() {
 	const searchword = $("#searchfield").val();
 
 	if(searchword.length > 3) {
-		https://api.maptiler.com/geocoding/{query}.json
 		$.getJSON("https://photon.komoot.de/api/", {
 			"q": searchword,
 			"lat": saved_lat,
@@ -159,6 +158,9 @@ $(function() {
 
 	if(saved_zoom !== undefined) {
 		map.setView([saved_lat, saved_lon],saved_zoom)
+		if (saved_zoom >= 12) {
+			$("#zoomnotice").hide();
+		}
 	} else {
 		map.setView([48.638, 7.690], 5);
 	}
@@ -177,7 +179,7 @@ $(function() {
 
 	// Display notice to zoom in.
 	map.on('zoomend', function() {
-		if (map.getZoom() >=12){
+		if (map.getZoom() >= 12){
 			$("#zoomnotice").fadeOut();
 		}
 		else {
