@@ -167,7 +167,7 @@ $(function() {
 	else var tp = "";
 
 
-	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+tp+'.png?key=cEVF2FxbV6tOoX4PBtog', {
+	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+tp+'.png?key=API-key', {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		maxZoom: 18
 	}).addTo(map);
