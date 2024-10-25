@@ -173,6 +173,17 @@ $(function() {
 		geocode();
 	});
 
+	// Display notice to zoom in.
+	map.on('zoomend', function() {
+		if (map.getZoom() >=12){
+			$("#zoomnotice").fadeOut();
+		}
+		else {
+			$("#zoomnotice").fadeIn();
+		}
+	});
+
+
 	// poi reload on map move
 	map.on('moveend', getOpElements);
 
