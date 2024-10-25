@@ -1,5 +1,5 @@
 'use strict';
-let map, saved_lat, saved_lon, bbox;
+let map, saved_lat, saved_lon, saved_zoom, bbox;
 let condom_icon, strip_icon, shop_icon, brothel_icon, register_icon;
 const poi_markers = [];
 
@@ -94,6 +94,7 @@ function getOpElements() {
 
 	localStorage.setItem("pos_lat", map.getCenter().lat)
 	localStorage.setItem("pos_lon", map.getCenter().lng)
+	localStorage.setItem("zoom", map.getZoom())
 
 	$.ajax({
 		url: "https://overpass-api.de/api/interpreter",
@@ -154,16 +155,17 @@ $(function() {
 	
 	saved_lat = localStorage.getItem("pos_lat")
 	saved_lon = localStorage.getItem("pos_lon")
+	saved_zoom = localStorage.getItem("zoom")
 
-	if(saved_lat !== undefined) {
-		map.setView([saved_lat, saved_lon], 9)
+	if(saved_zoom !== undefined) {
+		map.setView([saved_lat, saved_lon],saved_zoom)
 	} else {
 		map.setView([48.638, 7.690], 5);
 	}
 
 	retina = L.Browser.retina ? "@2x" : null;
 
-	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key=9SA3hAd2J4saslOINKuo', {
+	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key=APIkey', {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		maxZoom: 18
 	}).addTo(map);
