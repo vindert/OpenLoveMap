@@ -62,11 +62,8 @@ function elementToMap(data) {
 		}
 
 		if(el.tags !== undefined && el.tags.entrance !== "yes") {
-			let mrk;
-
-			if(el.tags.vending !== undefined) {
-				mrk = L.marker([el.lat, el.lon], {icon: condom_icon});
-				mrk.bindPopup("Condom vending machine");
+			if(el.tags.vending === "condoms") {
+				setPoiMarker("Condom vending machine", condom_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "stripclub") {
 				setPoiMarker("Strip Club", strip_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.shop === "erotic" || el.tags.shop === "adult" || el.tags.shop === "sex") {
