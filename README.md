@@ -8,6 +8,7 @@ The project is now live on www.openlovemap.org
 - Update leaflet
 - Update tile provider to www.maptiler.com
 - Use English everywhere
+- Add support for sexual or erotic massage shops.
 
 #### Todo:
 - Make searches work

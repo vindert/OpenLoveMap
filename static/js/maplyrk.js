@@ -1,6 +1,6 @@
 'use strict';
 let map, saved_lat, saved_lon, saved_zoom, bbox;
-let condom_icon, strip_icon, shop_icon, brothel_icon, register_icon;
+let condom_icon, strip_icon, shop_icon, brothel_icon, register_icon, massage_icon;
 const poi_markers = [];
 
 function jumpTo(lat, lon) {
@@ -79,6 +79,8 @@ function elementToMap(data) {
 				setPoiMarker("Swinger Club", brothel_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "register_office" || el.tags.office === "register") {
 				setPoiMarker("Register Office", register_icon, el.lat, el.lon, el.tags, el.id, el.type);
+			} else if(el.tags.massage === "sexual" || el.tags.massage === "erotic") {
+				setPoiMarker("Erotic Massage", massage_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			}
 		}
 	});
@@ -98,7 +100,7 @@ function getOpElements() {
 	$.ajax({
 		url: "https://overpass-api.de/api/interpreter",
 		data: {
-			"data": '[bbox:'+bbox+'][out:json][timeout:25];(nwr[vending=condoms];nwr[amenity~"^(brothel|love_hotel|swingerclub|stripclub|register_office)$"];nwr[shop~"^(erotic|adult|sex)$"];nwr[office=register];);out body center;'
+			"data": '[bbox:'+bbox+'][out:json][timeout:25];(nwr[vending=condoms];nwr[amenity~"^(brothel|love_hotel|swingerclub|stripclub|register_office)$"];nwr[shop~"^(erotic|adult|sex)$"];nwr[massage~"^(sexual|erotic)$"];nwr[office=register];);out body center;'
 		},
 		success: elementToMap
 	});
@@ -144,6 +146,13 @@ $(function() {
 
 	register_icon = L.icon({
 		iconUrl: '/static/img/register.png',
+		iconSize: [30, 30],
+		iconAnchor: [15, 15],
+		popupAnchor: [0, -15]
+	});
+
+	massage_icon = L.icon({
+		iconUrl: '/static/img/massage.png',
 		iconSize: [30, 30],
 		iconAnchor: [15, 15],
 		popupAnchor: [0, -15]
