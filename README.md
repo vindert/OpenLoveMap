@@ -10,6 +10,7 @@ The project is now live on www.openlovemap.org
 - Use English everywhere
 - Add support for sexual or erotic massage shops.
 - Show condoms vending machine
+- Use separate icon for love hotel
 
 #### Todo:
 - Make searches work

@@ -1,6 +1,6 @@
 'use strict';
 let map, saved_lat, saved_lon, saved_zoom, bbox;
-let condom_icon, strip_icon, shop_icon, brothel_icon, register_icon, massage_icon;
+let condom_icon, strip_icon, shop_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon;
 const poi_markers = [];
 
 function jumpTo(lat, lon) {
@@ -71,7 +71,7 @@ function elementToMap(data) {
 			} else if(el.tags.amenity === "brothel") {
 				setPoiMarker("Brothel", brothel_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "love_hotel") {
-				setPoiMarker("Love Hotel", brothel_icon, el.lat, el.lon, el.tags, el.id, el.type);
+				setPoiMarker("Love Hotel", love_hotel_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "swingerclub") {
 				setPoiMarker("Swinger Club", brothel_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "register_office" || el.tags.office === "register") {
@@ -136,6 +136,13 @@ $(function() {
 
 	brothel_icon = L.icon({
 		iconUrl: '/static/img/brothel.png',
+		iconSize: [30, 30],
+		iconAnchor: [15, 15],
+		popupAnchor: [0, -15]
+	});
+
+	love_hotel_icon = L.icon({
+		iconUrl: '/static/img/love_hotel.png',
 		iconSize: [30, 30],
 		iconAnchor: [15, 15],
 		popupAnchor: [0, -15]
