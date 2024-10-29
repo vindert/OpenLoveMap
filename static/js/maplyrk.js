@@ -43,9 +43,48 @@ function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 		popup_content = "<strong>" + tags.name + " ("+ poi_type +")</strong>";
 	}
 
-	popup_content += "<div class='more_on_osm'><a href='"+osmlink+"'>more on OpenStreetMap.org</a></div>";
+	if(tags['addr:housenumber'] !== undefined) {
+		popup_content += '<br>' + tags['addr:housenumber']
+	}
+	if(tags['addr:street'] !== undefined) {
+		if(tags['addr:housenumber'] === undefined) {
+			popup_content += '<br>'
+		}
+		popup_content += ' ' + tags['addr:street']
+	}
+	if(tags['addr:city'] !== undefined) {
+		popup_content += '<br>' + tags['addr:city']
+	}
+	if(tags.opening_hours !== undefined) {
+		popup_content += '<br>Open: ' + tags.opening_hours
+	}
+	popup_content += "<table class='smalltext' id=\""+osmid+"\">"
+	popup_content += '<tr><th>Key</th><th>Value</th></tr>'
+	for (const [key, raw_value] of Object.entries(tags)) {
+		let value = raw_value
+		if(key==='email') {
+			value = '<a href="mailto:' + raw_value + '">' + raw_value + '</a>'
+		} else if (key==='website' || key==='facebook' || key==='instagram') {
+			value = '<a href="' + raw_value + '" target="_blank" >' + raw_value + '</a>'
+		} else if (key==='phone') {
+			value = '<a href="tel:' + raw_value + '" target="_blank" >' + raw_value + '</a>'
+		}
+		popup_content += '<tr><td>' +key +'</td><td>'+value+'</td></tr>'
+	}
+	popup_content += "</table>"
+	popup_content += "<div class='more_on_osm'><a href='javascript:void(0)' class='toggle_tags' data-target='"+osmid+"'> Show all tags</a></div>";
+	popup_content += "<div class='more_on_osm'><a href='"+osmlink+"' target='_blank'>Show on OpenStreetMap.org</a></div>";
 
-	mrk.bindPopup(popup_content);
+	mrk.bindPopup(popup_content).on("popupopen", () => {
+		let trigger = $(".toggle_tags")
+		let tag_table = $('#'+ trigger.attr("data-target"))
+		tag_table.hide();
+		trigger.on("click", function(e) {
+            e.preventDefault();
+			tag_table.show( 400);
+			trigger.hide();
+		});
+	});
 	poi_markers.push(mrk);
 	mrk.addTo(map);
 }
@@ -199,7 +238,6 @@ $(function() {
 			$("#zoomnotice").fadeIn();
 		}
 	});
-
 
 	// poi reload on map move
 	map.on('moveend', getOpElements);

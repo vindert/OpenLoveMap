@@ -132,3 +132,7 @@ button {
 	text-decoration: none;
 	color: #CD59F7;
 }
+
+.smalltext {
+	font-size: .8em;
+}
