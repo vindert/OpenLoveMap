@@ -2,6 +2,7 @@
 let map, saved_lat, saved_lon, saved_zoom, bbox;
 let condom_icon, strip_icon, shop_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon;
 const poi_markers = [];
+const api_key = 'APIkey'
 
 function jumpTo(lat, lon) {
 	$("#autocomplete").hide();
@@ -9,22 +10,18 @@ function jumpTo(lat, lon) {
 }
 
 function geocode() {
-	const searchword = $("#searchfield").val();
+	const query = $("#searchfield").val();
 
-	if(searchword.length > 3) {
-		$.getJSON("https://photon.komoot.de/api/", {
-			"q": searchword,
-			"lat": saved_lat,
-			"lon": saved_lon,
+	if(query.length > 3) {
+		$.getJSON("https://api.maptiler.com/geocoding/"+ query+".json?key="+ api_key, {
+			"proximity": Array(saved_lon,saved_lat),
 			"limit": 5,
-			"lang": navigator.language
+			"language": navigator.language
 		}, function(data) {
 			let autocomplete_content = "<li>";
-
 			$.each(data.features, function(number, feature) {
 				const latlng = [feature.geometry.coordinates[1], feature.geometry.coordinates[0]];
-
-				autocomplete_content += "<ul onclick='jumpTo(" + latlng[0] + ", " + latlng[1] + ")'>" + feature.properties.name + ", " + feature.properties.country + "</ul>";
+				autocomplete_content += "<ul onclick='jumpTo(" + latlng[0] + ", " + latlng[1] + ")'>" + feature.place_name + "</ul>";
 			});
 			let autocomplete = $("#autocomplete")
 			autocomplete.html(autocomplete_content+"</li>");
@@ -219,7 +216,7 @@ $(function() {
 
 	retina = L.Browser.retina ? "@2x" : null;
 
-	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key=APIkey', {
+	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key='+ api_key, {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		maxZoom: 18
 	}).addTo(map);
