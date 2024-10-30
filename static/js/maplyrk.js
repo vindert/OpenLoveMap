@@ -6,6 +6,7 @@ const api_key = 'APIkey'
 
 function jumpTo(lat, lon) {
 	$("#autocomplete").hide();
+	$("#searchfield").val('');
 	map.panTo([lat, lon]);
 }
 
