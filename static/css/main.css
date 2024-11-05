@@ -68,6 +68,26 @@ button {
 	margin-top:4px;
 }
 
+#bottombar {
+	z-index: 2000;
+	bottom: 0;
+	position: absolute;
+	width: fit-content;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+#bottombar img {
+	width: 32px;
+	margin: .3em;
+}
+
+#bottombar a {
+	opacity: .5;
+}
+#bottombar a:hover {
+	opacity: 1;
+}
+
 #zoomnotice {
 	z-index: 2020;
 	position: absolute;
