@@ -215,7 +215,7 @@ $(function() {
 		map.setView([48.638, 7.690], 5);
 	}
 
-	retina = L.Browser.retina ? "@2x" : null;
+	retina = L.Browser.retina ? "@2x" : '';
 
 	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key='+ api_key, {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
