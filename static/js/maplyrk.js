@@ -215,6 +215,9 @@ $(function() {
 		map.setView([48.638, 7.690], 5);
 	}
 
+	// Needed for URL parameters.
+	let hash = new L.Hash(map);
+
 	retina = L.Browser.retina ? "@2x" : '';
 
 	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key='+ api_key, {
