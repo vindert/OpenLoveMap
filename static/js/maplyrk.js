@@ -220,7 +220,7 @@ $(function() {
 
 	retina = L.Browser.retina ? "@2x" : '';
 
-	L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}'+retina+'.png?key='+ api_key, {
+	L.tileLayer('https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}'+retina+'.jpg?key='+ api_key, {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		maxZoom: 18
 	}).addTo(map);
