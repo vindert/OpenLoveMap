@@ -222,6 +222,8 @@ $(function() {
 
 	L.tileLayer('https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}'+retina+'.jpg?key='+ api_key, {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
+		tileSize: 512,
+		zoomOffset: -1,
 		maxZoom: 18
 	}).addTo(map);
 
