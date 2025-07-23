@@ -155,3 +155,12 @@ button {
 .smalltext {
 	font-size: .8em;
 }
+
+.popup_icon {
+	padding-right: .7em;
+}
+
+.popup_opening_hours {
+	padding-left: .7em;
+	display: block;
+}

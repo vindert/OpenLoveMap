@@ -1,8 +1,8 @@
 'use strict';
 let map, saved_lat, saved_lon, saved_zoom, bbox;
-let condom_icon, strip_icon, shop_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon;
+let condom_icon, strip_icon, shop_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon, swinger_icon;
 const poi_markers = [];
-const api_key = 'APIkey'
+const api_key = 'mWO1NImLkvydBNnkMlIA'
 
 function jumpTo(lat, lon) {
 	$("#autocomplete").hide();
@@ -34,11 +34,50 @@ function geocode() {
 function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 	const mrk = L.marker([lat, lon], {icon: icon});
 	const osmlink = "https://www.openstreetmap.org/" + osmtype + "/" + osmid;
-	let popup_content;
+	let popup_content,popup_icons = '',oh
+
+	// Create opening_hours object.
+	if(tags.opening_hours !== undefined) {
+		oh = new opening_hours(tags.opening_hours, {}, {'locale': navigator.language});
+	}
+
 	if(tags.name === undefined) {
 		popup_content = "<strong>" + poi_type + "</strong>";
 	} else {
 		popup_content = "<strong>" + tags.name + " ("+ poi_type +")</strong>";
+	}
+	if(tags.opening_hours !== undefined) {
+		if (oh.getState()) {
+			popup_icons += '<img src="/static/img/open.png" alt="Open" title="Now open" class="popup_icon">'
+		} else {
+			popup_icons += '<img src="/static/img/closed.png" alt="closed" title="Currently closed" class="popup_icon">'
+		}
+	}
+	if(tags.website !== undefined || tags['contact:website'] !== undefined) {
+		let website_url
+		if(tags.website !== undefined) {
+			website_url = tags.website
+		}
+		else {
+			website_url =tags['contact:website']
+		}
+		popup_icons += '<a href="'+ website_url +'" target="_blank"><img src="/static/img/link.png" alt="Website link" title="Website ling" class="popup_icon"></a> '
+	}
+	if(tags.email !== undefined) {
+		popup_icons += '<a href="mailto:'+ tags.email +'"><img src="/static/img/mail.png" alt="Contact by email" title="Contact by email" class="popup_icon"></a> '
+	}
+	if(tags.phone !== undefined || tags['contact:phone'] !== undefined) {
+		let phone_number
+		if(tags.phone !== undefined) {
+			phone_number = tags.phone
+		}
+		else {
+			phone_number =tags['contact:phone']
+		}
+		popup_icons += '<a href="tel:'+ phone_number +'"><img src="/static/img/phone.png" alt="Contact by phone" title="Contact by phone" class="popup_icon"></a> '
+	}
+	if(popup_icons) {
+		popup_content += '<br>' + popup_icons
 	}
 
 	if(tags['addr:housenumber'] !== undefined) {
@@ -54,20 +93,31 @@ function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 		popup_content += '<br>' + tags['addr:city']
 	}
 	if(tags.opening_hours !== undefined) {
-		popup_content += '<br>Open: ' + tags.opening_hours
+		popup_content += '<br>Opening hours:<br><span class="popup_opening_hours">' + oh.prettifyValue(
+		{conf: {
+			locale: 'en',
+			rule_sep_string: '<br>',
+			print_semicolon: false
+		}}) + '</span>'
 	}
 	popup_content += "<table class='smalltext' id=\""+osmid+"\">"
 	popup_content += '<tr><th>Key</th><th>Value</th></tr>'
 	for (const [key, raw_value] of Object.entries(tags)) {
 		let value = raw_value
-		if(key==='email') {
+		if(key==='email' || key==='contact:email') {
 			value = '<a href="mailto:' + raw_value + '">' + raw_value + '</a>'
-		} else if (key==='website' || key==='facebook' || key==='instagram') {
+		} else if (key==='website' || key==='contact:website' || key==='facebook' || key==='contact:facebook' || key==='instagram' || key==='contact:instagram') {
 			value = '<a href="' + raw_value + '" target="_blank" >' + raw_value + '</a>'
-		} else if (key==='phone') {
+		} else if (key==='phone' || key==='contact:phone') {
 			value = '<a href="tel:' + raw_value + '" target="_blank" >' + raw_value + '</a>'
+		} else if (key==='opening_hours') {
+			value = oh.prettifyValue(
+				{conf: {
+						locale: 'en',
+						rule_sep_string: '<br>'
+					}})
 		}
-		popup_content += '<tr><td>' +key +'</td><td>'+value+'</td></tr>'
+		popup_content += '<tr><td valign="top">' +key +'</td><td>'+value+'</td></tr>'
 	}
 	popup_content += "</table>"
 	popup_content += "<div class='more_on_osm'><a href='javascript:void(0)' class='toggle_tags' data-target='"+osmid+"'> Show all tags</a></div>";
@@ -110,7 +160,7 @@ function elementToMap(data) {
 			} else if(el.tags.amenity === "love_hotel") {
 				setPoiMarker("Love Hotel", love_hotel_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "swingerclub") {
-				setPoiMarker("Swinger Club", brothel_icon, el.lat, el.lon, el.tags, el.id, el.type);
+				setPoiMarker("Swinger Club", swinger_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "register_office" || el.tags.office === "register") {
 				setPoiMarker("Register Office", register_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.massage === "sexual" || el.tags.massage === "erotic") {
@@ -194,6 +244,13 @@ $(function() {
 
 	massage_icon = L.icon({
 		iconUrl: '/static/img/massage.png',
+		iconSize: [30, 30],
+		iconAnchor: [15, 15],
+		popupAnchor: [0, -15]
+	});
+
+	swinger_icon = L.icon({
+		iconUrl: '/static/img/swinger.png',
 		iconSize: [30, 30],
 		iconAnchor: [15, 15],
 		popupAnchor: [0, -15]
