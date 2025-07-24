@@ -2,7 +2,7 @@
 let map, saved_lat, saved_lon, saved_zoom, bbox;
 let condom_icon, strip_icon, shop_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon, swinger_icon;
 const poi_markers = [];
-const api_key = 'mWO1NImLkvydBNnkMlIA'
+const api_key = 'APIkey'
 
 function jumpTo(lat, lon) {
 	$("#autocomplete").hide();
@@ -38,7 +38,7 @@ function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 
 	// Create opening_hours object.
 	if(tags.opening_hours !== undefined) {
-		oh = new opening_hours(tags.opening_hours, {}, {'locale': navigator.language});
+		oh = new opening_hours(tags.opening_hours, null, {'locale': navigator.language});
 	}
 
 	if(tags.name === undefined) {
@@ -117,7 +117,7 @@ function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 						rule_sep_string: '<br>'
 					}})
 		}
-		popup_content += '<tr><td valign="top">' +key +'</td><td>'+value+'</td></tr>'
+		popup_content += '<tr><td style="vertical-align:top">' +key +'</td><td>'+value+'</td></tr>'
 	}
 	popup_content += "</table>"
 	popup_content += "<div class='more_on_osm'><a href='javascript:void(0)' class='toggle_tags' data-target='"+osmid+"'> Show all tags</a></div>";
