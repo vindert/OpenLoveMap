@@ -1,0 +1,79 @@
+{
+    "data_format": 1,
+    "data_url": "https://openlovemap.org/taginfo.json",
+    "project": {
+        "name": "OpenLoveMap.org",
+        "description": "Love in the palm of your hand",
+        "project_url": "https://openlovemap.org",
+        "icon_url": "https://openlovemap.org/static/favicon/favicon-16x16.png",
+        "contact_name": "Rindert Vonk",
+        "contact_email": "rindertvnk@pm.me"
+    },
+    "tags": [
+        {
+            "key": "vending",
+            "value": "condoms",
+            "icon_url": "https://openlovemap.org/static/img/kondom.png"
+        },
+        {
+            "key": "amenity",
+            "value": "brothel",
+            "icon_url": "https://openlovemap.org/static/img/brothel.png"
+        },
+        {
+            "key": "amenity",
+            "value": "love_hotel",
+            "icon_url": "https://openlovemap.org/static/img/love_hotel.png"
+        },
+        {
+            "key": "amenity",
+            "value": "swingerclub",
+            "icon_url": "https://openlovemap.org/static/img/swinger.png"
+        },
+        {
+            "key": "amenity",
+            "value": "stripclub",
+            "icon_url": "https://openlovemap.org/static/img/stripclub.png"
+        },
+        {
+            "key": "shop",
+            "value": "erotic",
+            "icon_url": "https://openlovemap.org/static/img/shop.png"
+        },
+        {
+            "key": "shop",
+            "value": "adult",
+            "icon_url": "https://openlovemap.org/static/img/shop.png"
+        },
+        {
+            "key": "shop",
+            "value": "erotic",
+            "icon_url": "https://openlovemap.org/static/img/shop.png"
+        },
+        {
+            "key": "shop",
+            "value": "sex",
+            "icon_url": "https://openlovemap.org/static/img/shop.png"
+        },
+        {
+            "key": "massage",
+            "value": "sexual",
+            "icon_url": "https://openlovemap.org/static/img/massage.png"
+        },
+        {
+            "key": "massage",
+            "value": "erotic",
+            "icon_url": "https://openlovemap.org/static/img/massage.png"
+        },
+        {
+            "key": "office",
+            "value": "register",
+            "icon_url": "https://openlovemap.org/static/img/register.png"
+        },
+        {
+            "key": "amenity",
+            "value": "register_office",
+            "icon_url": "https://openlovemap.org/static/img/register.png"
+        }
+    ]
+}
