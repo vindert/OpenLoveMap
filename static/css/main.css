@@ -100,6 +100,11 @@ button {
 	border-radius:5px;
 }
 
+#description {
+	position: absolute;
+	top:-200px
+}
+
 #bigmap {
 	position: absolute;
 	width: 100%;
@@ -157,7 +162,7 @@ button {
 }
 
 .popup_icon {
-	padding-right: .7em;
+	padding-right: 1.2em;
 }
 
 .popup_opening_hours {
