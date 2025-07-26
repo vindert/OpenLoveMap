@@ -1,6 +1,6 @@
 'use strict';
 let map, saved_lat, saved_lon, saved_zoom, bbox;
-let condom_icon, strip_icon, shop_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon, swinger_icon;
+let condom_icon, strip_icon, shop_icon, shop_lgbtq_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon, swinger_icon;
 const poi_markers = [];
 const api_key = 'APIkey'
 
@@ -153,8 +153,13 @@ function elementToMap(data) {
 				setPoiMarker("Condom vending machine", condom_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "stripclub") {
 				setPoiMarker("Strip Club", strip_icon, el.lat, el.lon, el.tags, el.id, el.type);
-			} else if(el.tags.shop === "erotic" || el.tags.shop === "adult" || el.tags.shop === "sex") {
-				setPoiMarker("Sex shop", shop_icon, el.lat, el.lon, el.tags, el.id, el.type);
+			} else if(el.tags.shop === "erotic" || el.tags.shop === "adult") {
+				console.log(el.tags)
+				if (el.tags.lgbtq === 'primary') {
+					setPoiMarker("LGBTQ Sex shop", shop_lgbtq_icon, el.lat, el.lon, el.tags, el.id, el.type);
+				} else {
+					setPoiMarker("Sex shop", shop_icon, el.lat, el.lon, el.tags, el.id, el.type);
+				}
 			} else if(el.tags.amenity === "brothel") {
 				setPoiMarker("Brothel", brothel_icon, el.lat, el.lon, el.tags, el.id, el.type);
 			} else if(el.tags.amenity === "love_hotel") {
@@ -184,7 +189,7 @@ function getOpElements() {
 	$.ajax({
 		url: "https://overpass-api.de/api/interpreter",
 		data: {
-			"data": '[bbox:'+bbox+'][out:json][timeout:25];(nwr[vending=condoms];nwr[amenity~"^(brothel|love_hotel|swingerclub|stripclub|register_office)$"];nwr[shop~"^(erotic|adult|sex)$"];nwr[massage~"^(sexual|erotic)$"];nwr[office=register];);out body center;'
+			"data": '[bbox:'+bbox+'][out:json][timeout:25];(nwr[vending=condoms];nwr[amenity~"^(brothel|love_hotel|swingerclub|stripclub|register_office)$"];nwr[shop~"^(erotic|adult)$"];nwr[massage~"^(sexual|erotic)$"];nwr[office=register];);out body center;'
 		},
 		success: elementToMap
 	});
@@ -202,58 +207,65 @@ $(function() {
 	let retina;
 	condom_icon = L.icon({
 		iconUrl: '/static/img/condom.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	strip_icon = L.icon({
 		iconUrl: '/static/img/stripclub.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	shop_icon = L.icon({
 		iconUrl: '/static/img/shop.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
+	});
+
+	shop_lgbtq_icon = L.icon({
+		iconUrl: '/static/img/shop_lgbtq.png',
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	brothel_icon = L.icon({
 		iconUrl: '/static/img/brothel.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	love_hotel_icon = L.icon({
 		iconUrl: '/static/img/love_hotel.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	register_icon = L.icon({
 		iconUrl: '/static/img/register.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	massage_icon = L.icon({
 		iconUrl: '/static/img/massage.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	swinger_icon = L.icon({
 		iconUrl: '/static/img/swinger.png',
-		iconSize: [30, 30],
-		iconAnchor: [15, 15],
-		popupAnchor: [0, -15]
+		iconSize: [30, 45],
+		iconAnchor: [15, 45],
+		popupAnchor: [0, -45]
 	});
 
 	// init map
@@ -281,7 +293,7 @@ $(function() {
 		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		tileSize: 512,
 		zoomOffset: -1,
-		maxZoom: 18
+		maxZoom: 19
 	}).addTo(map);
 
 	// init search

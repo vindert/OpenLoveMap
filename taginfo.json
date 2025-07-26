@@ -46,6 +46,12 @@
             "icon_url": "https://openlovemap.org/static/img/shop.png"
         },
         {
+            "key": "lgbtq",
+            "value": "primary",
+            "icon_url": "https://openlovemap.org/static/img/shop_lgbtq.png",
+            "description": "For adult shops with lqbtq=primary this marker is used."
+        },
+        {
             "key": "massage",
             "value": "sexual",
             "icon_url": "https://openlovemap.org/static/img/massage.png"
