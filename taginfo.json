@@ -7,13 +7,13 @@
         "project_url": "https://openlovemap.org",
         "icon_url": "https://openlovemap.org/static/favicon/favicon-16x16.png",
         "contact_name": "Rindert Vonk",
-        "contact_email": "rindertvnk@pm.me"
+        "contact_email": "rindertvonk@pm.me"
     },
     "tags": [
         {
             "key": "vending",
             "value": "condoms",
-            "icon_url": "https://openlovemap.org/static/img/kondom.png"
+            "icon_url": "https://openlovemap.org/static/img/condom.png"
         },
         {
             "key": "amenity",
@@ -43,16 +43,6 @@
         {
             "key": "shop",
             "value": "adult",
-            "icon_url": "https://openlovemap.org/static/img/shop.png"
-        },
-        {
-            "key": "shop",
-            "value": "erotic",
-            "icon_url": "https://openlovemap.org/static/img/shop.png"
-        },
-        {
-            "key": "shop",
-            "value": "sex",
             "icon_url": "https://openlovemap.org/static/img/shop.png"
         },
         {
