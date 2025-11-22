@@ -70,6 +70,51 @@
             "key": "amenity",
             "value": "register_office",
             "icon_url": "https://openlovemap.org/static/img/register.png"
+        },
+        {
+          "key": "name"
+        },
+        {
+          "key": "opening_hours"
+        },
+        {
+          "key": "website"
+        },
+        {
+          "key": "contact:website"
+        },
+        {
+          "key": "email"
+        },
+        {
+          "key": "contact:email"
+        },
+        {
+          "key": "phone"
+        },
+        {
+          "key": "contact:phone"
+        },
+        {
+          "key": "addr:housenumber"
+        },
+        {
+          "key": "addr:street"
+        },
+        {
+          "key": "addr:city"
+        },
+        {
+          "key": "facebook"
+        },
+        {
+          "key": "contact:facebook"
+        },
+        {
+          "key": "instagram"
+        },
+        {
+          "key": "contact:instagram"
         }
     ]
 }

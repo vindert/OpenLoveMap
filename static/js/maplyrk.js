@@ -61,10 +61,17 @@ function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 		else {
 			website_url =tags['contact:website']
 		}
-		popup_icons += '<a href="'+ website_url +'" target="_blank"><img src="/static/img/link.png" alt="Website link" title="Website ling" class="popup_icon"></a> '
+		popup_icons += '<a href="'+ website_url +'" target="_blank"><img src="/static/img/link.png" alt="Website link" title="Website link" class="popup_icon"></a> '
 	}
-	if(tags.email !== undefined) {
-		popup_icons += '<a href="mailto:'+ tags.email +'"><img src="/static/img/mail.png" alt="Contact by email" title="Contact by email" class="popup_icon"></a> '
+	if(tags.email !== undefined || tags['contact:email'] !== undefined) {
+        let email_url
+        if(tags.email !== undefined) {
+            email_url = tags.email
+        }
+        else {
+            email_url =tags['contact:email']
+        }
+		popup_icons += '<a href="mailto:'+ email_url +'"><img src="/static/img/mail.png" alt="Contact by email" title="Contact by email" class="popup_icon"></a> '
 	}
 	if(tags.phone !== undefined || tags['contact:phone'] !== undefined) {
 		let phone_number
@@ -290,7 +297,7 @@ $(function() {
 	retina = L.Browser.retina ? "@2x" : '';
 
 	L.tileLayer('https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}'+retina+'.jpg?key='+ api_key, {
-		attribution: 'Powered by <a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
+		attribution: '<a href="https://maptiler.com/">maptiler.com</a> and <a href="https://www.openstreetmap.org/copyright">&copy;OpenStreetMap contributors</a>',
 		tileSize: 512,
 		zoomOffset: -1,
 		maxZoom: 19
