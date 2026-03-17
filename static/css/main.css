@@ -88,7 +88,7 @@ button {
 	opacity: 1;
 }
 
-#zoomnotice {
+#zoom_notice, #loader_notice, #result_notice {
 	z-index: 2020;
 	position: absolute;
 	top: 25%;
@@ -98,6 +98,23 @@ button {
 	background-color: rgba(255, 255, 255, 0.7);
 	padding:1.2rem 2.5rem;
 	border-radius:5px;
+	border: 1px #424242 solid;
+	box-shadow: 0 0 3px 3px #818181;
+}
+
+#error_notice {
+	z-index: 2026;
+	position: absolute;
+	top: 35%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+	background-color: rgba(246, 137, 137, 0.7);
+	color: #430202;
+	padding:1.2rem 2.5rem;
+	border-radius:5px;
+	border: 1px #650101 solid;
+	box-shadow: 0 0 3px 3px #818181;
 }
 
 #description {

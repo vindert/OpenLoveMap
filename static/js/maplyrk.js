@@ -1,6 +1,7 @@
 'use strict';
 let map, saved_lat, saved_lon, saved_zoom, bbox;
-let condom_icon, strip_icon, shop_icon, shop_lgbtq_icon, brothel_icon, love_hotel_icon , register_icon, massage_icon, swinger_icon;
+let condom_icon, strip_icon, shop_icon, shop_lgbtq_icon, brothel_icon, love_hotel_icon, register_icon, massage_icon,
+    swinger_icon;
 const poi_markers = [];
 const api_key = 'APIkey'
 
@@ -65,70 +66,72 @@ function setPoiMarker(poi_type, icon, lat, lon, tags, osmid, osmtype) {
 	}
 	if(tags.email !== undefined || tags['contact:email'] !== undefined) {
         let email_url
-        if(tags.email !== undefined) {
+        if (tags.email !== undefined) {
             email_url = tags.email
+        } else {
+            email_url = tags['contact:email']
         }
-        else {
-            email_url =tags['contact:email']
+        popup_icons += '<a href="mailto:' + email_url + '"><img src="/static/img/mail.png" alt="Contact by email" title="Contact by email" class="popup_icon"></a> '
+    }
+    if (tags.phone !== undefined || tags['contact:phone'] !== undefined) {
+        let phone_number
+        if (tags.phone !== undefined) {
+            phone_number = tags.phone
+        } else {
+            phone_number = tags['contact:phone']
         }
-		popup_icons += '<a href="mailto:'+ email_url +'"><img src="/static/img/mail.png" alt="Contact by email" title="Contact by email" class="popup_icon"></a> '
-	}
-	if(tags.phone !== undefined || tags['contact:phone'] !== undefined) {
-		let phone_number
-		if(tags.phone !== undefined) {
-			phone_number = tags.phone
-		}
-		else {
-			phone_number =tags['contact:phone']
-		}
-		popup_icons += '<a href="tel:'+ phone_number +'"><img src="/static/img/phone.png" alt="Contact by phone" title="Contact by phone" class="popup_icon"></a> '
-	}
-	if(popup_icons) {
-		popup_content += '<br>' + popup_icons
-	}
+        popup_icons += '<a href="tel:' + phone_number + '"><img src="/static/img/phone.png" alt="Contact by phone" title="Contact by phone" class="popup_icon"></a> '
+    }
+    if (popup_icons) {
+        popup_content += '<br>' + popup_icons
+    }
 
-	if(tags['addr:housenumber'] !== undefined) {
-		popup_content += '<br>' + tags['addr:housenumber']
-	}
-	if(tags['addr:street'] !== undefined) {
-		if(tags['addr:housenumber'] === undefined) {
-			popup_content += '<br>'
-		}
-		popup_content += ' ' + tags['addr:street']
-	}
-	if(tags['addr:city'] !== undefined) {
-		popup_content += '<br>' + tags['addr:city']
-	}
-	if(tags.opening_hours !== undefined) {
-		popup_content += '<br>Opening hours:<br><span class="popup_opening_hours">' + oh.prettifyValue(
-		{conf: {
-			locale: 'en',
-			rule_sep_string: '<br>',
-			print_semicolon: false
-		}}) + '</span>'
-	}
-	popup_content += "<table class='smalltext' id=\""+osmid+"\">"
-	popup_content += '<tr><th>Key</th><th>Value</th></tr>'
-	for (const [key, raw_value] of Object.entries(tags)) {
-		let value = raw_value
-		if(key==='email' || key==='contact:email') {
-			value = '<a href="mailto:' + raw_value + '">' + raw_value + '</a>'
-		} else if (key==='website' || key==='contact:website' || key==='facebook' || key==='contact:facebook' || key==='instagram' || key==='contact:instagram') {
-			value = '<a href="' + raw_value + '" target="_blank" >' + raw_value + '</a>'
-		} else if (key==='phone' || key==='contact:phone') {
-			value = '<a href="tel:' + raw_value + '" target="_blank" >' + raw_value + '</a>'
-		} else if (key==='opening_hours') {
-			value = oh.prettifyValue(
-				{conf: {
-						locale: 'en',
-						rule_sep_string: '<br>'
-					}})
-		}
-		popup_content += '<tr><td style="vertical-align:top">' +key +'</td><td>'+value+'</td></tr>'
-	}
-	popup_content += "</table>"
-	popup_content += "<div class='more_on_osm'><a href='javascript:void(0)' class='toggle_tags' data-target='"+osmid+"'> Show all tags</a></div>";
-	popup_content += "<div class='more_on_osm'><a href='"+osmlink+"' target='_blank'>Show on OpenStreetMap.org</a></div>";
+    if (tags['addr:housenumber'] !== undefined) {
+        popup_content += '<br>' + tags['addr:housenumber']
+    }
+    if (tags['addr:street'] !== undefined) {
+        if (tags['addr:housenumber'] === undefined) {
+            popup_content += '<br>'
+        }
+        popup_content += ' ' + tags['addr:street']
+    }
+    if (tags['addr:city'] !== undefined) {
+        popup_content += '<br>' + tags['addr:city']
+    }
+    if (tags.opening_hours !== undefined) {
+        popup_content += '<br>Opening hours:<br><span class="popup_opening_hours">' + oh.prettifyValue(
+            {
+                conf: {
+                    locale: 'en',
+                    rule_sep_string: '<br>',
+                    print_semicolon: false
+                }
+            }) + '</span>'
+    }
+    popup_content += "<table class='smalltext' id=\"" + osmid + "\">"
+    popup_content += '<tr><th>Key</th><th>Value</th></tr>'
+    for (const [key, raw_value] of Object.entries(tags)) {
+        let value = raw_value
+        if (key === 'email' || key === 'contact:email') {
+            value = '<a href="mailto:' + raw_value + '">' + raw_value + '</a>'
+        } else if (key === 'website' || key === 'contact:website' || key === 'facebook' || key === 'contact:facebook' || key === 'instagram' || key === 'contact:instagram') {
+            value = '<a href="' + raw_value + '" target="_blank" >' + raw_value + '</a>'
+        } else if (key === 'phone' || key === 'contact:phone') {
+            value = '<a href="tel:' + raw_value + '" target="_blank" >' + raw_value + '</a>'
+        } else if (key === 'opening_hours') {
+            value = oh.prettifyValue(
+                {
+                    conf: {
+                        locale: 'en',
+                        rule_sep_string: '<br>'
+                    }
+                })
+        }
+        popup_content += '<tr><td style="vertical-align:top">' + key + '</td><td>' + value + '</td></tr>'
+    }
+    popup_content += "</table>"
+    popup_content += "<div class='more_on_osm'><a href='javascript:void(0)' class='toggle_tags' data-target='" + osmid + "'> Show all tags</a></div>";
+    popup_content += "<div class='more_on_osm'><a href='" + osmlink + "' target='_blank'>Show on OpenStreetMap.org</a></div>";
 
 	mrk.bindPopup(popup_content).on("popupopen", () => {
 		let trigger = $(".toggle_tags")
@@ -193,13 +196,32 @@ function getOpElements() {
 	localStorage.setItem("pos_lon", map.getCenter().lng)
 	localStorage.setItem("zoom", map.getZoom())
 
-	$.ajax({
-		url: "https://overpass-api.de/api/interpreter",
-		data: {
-			"data": '[bbox:'+bbox+'][out:json][timeout:25];(nwr[vending=condoms];nwr[amenity~"^(brothel|love_hotel|swingerclub|stripclub|register_office)$"];nwr[shop~"^(erotic|adult)$"];nwr[massage~"^(sexual|erotic)$"];nwr[office=register];);out body center;'
-		},
-		success: elementToMap
-	});
+    $.ajax({
+        beforeSend: function () {
+            $("#loader_notice").show().text("Loading data...")
+        },
+        url: "https://overpass-api.de/api/interpreter",
+        data: {
+            "data": '[bbox:' + bbox + '][out:json][timeout:25];(nwr[vending=condoms];nwr[amenity~"^(brothel|love_hotel|swingerclub|stripclub|register_office)$"];nwr[shop~"^(erotic|adult)$"];nwr[massage~"^(sexual|erotic)$"];nwr[office=register];);out body center;'
+        },
+        success: (function (data) {
+            let result_txt
+            if (Object.keys(data.elements).length === 1) {
+                result_txt = "1 POI loaded";
+            } else {
+                result_txt = Object.keys(data.elements).length + " POIs loaded";
+            }
+            $("#result_notice").show().text(result_txt).delay(3000).fadeOut(700)
+        })
+    }).done(
+        elementToMap
+    )
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            $("#error_notice").show().text(errorThrown).delay(5000).fadeOut(700);
+        })
+        .always(function () {
+            $("#loader_notice").hide()
+        });
 }
 
 
@@ -308,19 +330,18 @@ $(function() {
 		geocode();
 	});
 
-	// Display notice to zoom in.
-	map.on('zoomend', function() {
-		if (map.getZoom() >= 12){
-			$("#zoomnotice").fadeOut();
-		}
-		else {
-			$("#zoomnotice").fadeIn();
-		}
-	});
+    // Display notice to zoom in.
+    map.on('zoomend', function () {
+        if (map.getZoom() >= 12) {
+            $("#zoom_notice").fadeOut();
+        } else {
+            $("#zoom_notice").fadeIn();
+        }
+    });
 
 	// poi reload on map move
 	map.on('moveend', getOpElements);
 
-	// initial poi load
-	getOpElements();
+    // initial poi load
+    map.on('load', getOpElements);
 });
